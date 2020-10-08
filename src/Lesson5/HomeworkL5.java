@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class HomeworkL5 {
     public static void main(String[] args) {
-        task1();
+        //task1();
         //task2();
         //task3();
         //task4();
@@ -37,7 +37,7 @@ public class HomeworkL5 {
                     break;
                 }
             }
-            if (flag == true) array[i] = word;
+            if (flag) array[i] = word;
         }
         System.out.println(Arrays.toString(array));
     }
@@ -87,10 +87,10 @@ public class HomeworkL5 {
         StringBuilder sb = new StringBuilder("");
         String[] array = word.split("");
 
-        for (int i = 0; i < array.length; i++) {
-            if (i == 0) array[i] = array[i].toUpperCase();
-            else array[i] = array[i].toLowerCase();
-
+        array[0] = array[0].toUpperCase();
+        sb.append(array[0]);
+        for (int i = 1; i < array.length; i++) {
+            array[i] = array[i].toLowerCase();
             sb.append(array[i]);
         }
         word = sb.toString();
