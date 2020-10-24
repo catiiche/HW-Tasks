@@ -10,15 +10,17 @@ public class Fitness {
     private static Client[] clientsGroupTraining = new Client[CNT];
 
     public static void main(String[] args) {
+        Fitness fitness = new Fitness();
+
         Client client1 = new Client("Ivan", "Ivanov", 1985);
         Client client2 = new Client("Lisa", "Denizo", 1990);
         Client client3 = new Client("Petr", "Sidorochkin", 1995);
 
-        OneDayPass oneDayPass = new OneDayPass(client1);
+        OneDayPass oneDayPass = new OneDayPass(client1, fitness);
 
         LocalDateTime endRegistration = LocalDateTime.of(2020, Month.NOVEMBER, 20, 5, 55);
-        DaySubscription daySubscription = new DaySubscription(endRegistration, client2);
-        UnlimitedAccess unlimitedAccess = new UnlimitedAccess(endRegistration, client3);
+        DaySubscription daySubscription = new DaySubscription(endRegistration, client2, fitness);
+        UnlimitedAccess unlimitedAccess = new UnlimitedAccess(endRegistration, client3, fitness);
 
         // Когда клиент приходит в фитнес клуб, он сообщает желаемую зону и показывает абонемент.
         oneDayPass.visit();
@@ -40,7 +42,7 @@ public class Fitness {
         return clientsGroupTraining;
     }
 
-    public static void close() {
+    public void close() {
         for (int i = 0; i < CNT; i++) {
             clientsPool[i] = null;
             clientsGym[i] = null;
@@ -48,7 +50,7 @@ public class Fitness {
         }
     }
 
-    public static boolean addToGym(Client client) {
+    public boolean addToGym(Client client) {
         for (int i = 0; i < clientsGym.length; i++) {
             if (clientsGym[i] == null) {
                 clientsGym[i] = client;
@@ -61,7 +63,7 @@ public class Fitness {
         return false;
     }
 
-    public static boolean addToPool(Client client) {
+    public boolean addToPool(Client client) {
         for (int i = 0; i < clientsPool.length; i++) {
             if (clientsPool[i] == null) {
                 clientsPool[i] = client;
@@ -74,7 +76,7 @@ public class Fitness {
         return false;
     }
 
-    public static boolean addToGroupTraining(Client client) {
+    public boolean addToGroupTraining(Client client) {
         for (int i = 0; i < clientsGroupTraining.length; i++) {
             if (clientsGroupTraining[i] == null) {
                 clientsGroupTraining[i] = client;
@@ -87,7 +89,7 @@ public class Fitness {
         return false;
     }
 
-    public static int[] checkOccupied() {
+    public int[] checkOccupied() {
         int cntPool = 0;
         int cntGym = 0;
         int cntGroupTraining = 0;
@@ -105,7 +107,7 @@ public class Fitness {
         return unoccupied;
     }
 
-    public static void printRejectionCause() {
+    public void printRejectionCause() {
         int[] unoccupied = checkOccupied();
         System.out.println("\nCвободные места в бассейне: "
                 + unoccupied[0]

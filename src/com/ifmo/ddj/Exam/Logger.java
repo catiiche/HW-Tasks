@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Logger {
     public static void visitors(Fitness visitors) {
-        System.out.println("Посетители тренажерного зала");
+        System.out.println("Посетители тренажерного зала:");
         int cnt = 0;
         for (int i = 0; i < Fitness.getClientsGym().length; i++) {
             if (Fitness.getClientsGym()[i] != null) {
@@ -15,7 +15,7 @@ public class Logger {
         if (cnt == 0) System.out.println("В тренажерном зале никто не занимается");
 
         cnt = 0;
-        System.out.println("Посетители бассейна");
+        System.out.println("Посетители бассейна:");
         for (int i = 0; i < Fitness.getClientsPool().length; i++) {
             if (Fitness.getClientsPool()[i] != null) {
                 clientInfo(Fitness.getClientsPool()[i]);
@@ -25,7 +25,7 @@ public class Logger {
         if (cnt == 0) System.out.println("В бассейне никто не занимается");
 
         cnt = 0;
-        System.out.println("Посетители групповых тренировок");
+        System.out.println("Посетители групповых тренировок:");
         for (int i = 0; i < Fitness.getClientsGroupTraining().length; i++) {
             if (Fitness.getClientsGroupTraining()[i] != null) {
                 clientInfo(Fitness.getClientsGroupTraining()[i]);

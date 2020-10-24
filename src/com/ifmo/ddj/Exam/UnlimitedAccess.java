@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class UnlimitedAccess extends Membership implements VisitAble {
-    final static LocalTime startWorkingHour = LocalTime.of(8, 0);
-    final static LocalTime endWorkingHour = LocalTime.of(22, 0);
+    final static LocalTime STARTWORKINGHOUR = LocalTime.of(8, 0);
+    final static LocalTime ENDWORKINGHOUR = LocalTime.of(22, 0);
 
-    public UnlimitedAccess(LocalDateTime endRegistration, Client client) {
-        super(endRegistration, client);
+    public UnlimitedAccess(LocalDateTime endRegistration, Client client, Fitness fitness) {
+        super(endRegistration, client, fitness);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class UnlimitedAccess extends Membership implements VisitAble {
     }
 
     private void visitPool() {
-        if (checkAccess(startWorkingHour, endWorkingHour) && !this.client.isTraining()) {
-            Fitness.addToPool(this.client);
+        if (checkAccess(STARTWORKINGHOUR, ENDWORKINGHOUR) && !this.client.isTraining()) {
+            this.getFitness().addToPool(this.client);
             this.client.setTraining(true);
             this.whereClient = "Бассейн";
             System.out.println(client.getName() + " зашел в бассейн.");
@@ -37,8 +37,8 @@ public class UnlimitedAccess extends Membership implements VisitAble {
     }
 
     private void visitGym() {
-        if (checkAccess(startWorkingHour, endWorkingHour) && !this.client.isTraining()) {
-            Fitness.addToGym(this.client);
+        if (checkAccess(STARTWORKINGHOUR, ENDWORKINGHOUR) && !this.client.isTraining()) {
+            this.getFitness().addToGym(this.client);
             this.client.setTraining(true);
             this.whereClient = "Тренажерный зал.";
             Logger.printVisitInfo(this);
@@ -46,8 +46,8 @@ public class UnlimitedAccess extends Membership implements VisitAble {
     }
 
     private void visitGroupTraining() {
-        if (checkAccess(startWorkingHour, endWorkingHour) && !this.client.isTraining()) {
-            Fitness.addToGroupTraining(this.client);
+        if (checkAccess(STARTWORKINGHOUR, ENDWORKINGHOUR) && !this.client.isTraining()) {
+            this.getFitness().addToGroupTraining(this.client);
             this.client.setTraining(true);
             this.whereClient = "Групповые тренировки.";
             Logger.printVisitInfo(this);

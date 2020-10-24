@@ -10,20 +10,27 @@ public abstract class Membership {
     protected LocalDateTime endRegistration; //когда абонемент перестает действовать
     protected int choose; //число от 0 до 2
     protected String whereClient;
+    Fitness fitness;
 
-    protected Membership(LocalDateTime endRegistration, Client client) {
+    protected Membership(LocalDateTime endRegistration, Client client, Fitness fitness) {
+        Objects.requireNonNull(client, "client не должен быть null");
+        Objects.requireNonNull(fitness, "fitness не должен быть null");
         this.startRegistration = LocalDateTime.now();
         if (endRegistration.isBefore(startRegistration))
             throw new IllegalArgumentException("Дата окончания абонемента не может"
                     + " быть раньше чем дата начала регистрации");
-        this.endRegistration = endRegistration;
-        Objects.requireNonNull(client, "client не должен быть null");
         this.client = client;
+        this.fitness = fitness;
+        this.endRegistration = endRegistration;
     }
 
     protected Membership(Client client) {
         Objects.requireNonNull(client, "client не должен быть null");
         this.client = client;
+    }
+
+    public Fitness getFitness() {
+        return fitness;
     }
 
     protected boolean checkAccess(LocalTime startWorkingHour, LocalTime endWorkingHour) {
@@ -34,11 +41,13 @@ public abstract class Membership {
         if (startTime.isAfter(startWorkingHour) && startTime.isBefore(endWorkingHour)) {
             if (startDateTime.isAfter(this.startRegistration) && startDateTime.isBefore(this.endRegistration))
                 return true;
-            else rejection = "срок действия Вашего абонимента истек или еще не начался";
-        } else rejection = "Вы не можете посещать клуб в это время. Приходите с "
+            else rejection = client.getName() + " " + client.getSurname()
+                    + ", срок действия Вашего абонемента истек или еще не начался";
+        } else rejection = client.getName() + " " + client.getSurname()
+                + ", Вы не можете посещать клуб в это время. Приходите с "
                 + startWorkingHour.toString()
                 + " до " + endWorkingHour.toString();
-        System.out.println("Вход закрыт. Причина отказа: " + rejection);
+        System.out.println(client.getName() + " " + client.getSurname() + ", вход закрыт. Причина отказа: " + rejection);
         return false;
     }
 
