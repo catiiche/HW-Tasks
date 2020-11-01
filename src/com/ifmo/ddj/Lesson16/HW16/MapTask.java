@@ -80,7 +80,6 @@ public class MapTask {
     }
 
     // 1
-
     public static List<String> getByLogin(HashMap<String, String> firstTaskMap, String city) {
         List<String> newList = new ArrayList<>();
         for (Map.Entry<String, String> pair : firstTaskMap.entrySet()) {
@@ -192,7 +191,6 @@ public class MapTask {
         }
         System.out.println(popularWords);
     }
-
 
     // 4.4
     public static void alphabet(String text) {
