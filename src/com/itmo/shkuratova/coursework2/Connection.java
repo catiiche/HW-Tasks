@@ -2,7 +2,19 @@ package com.itmo.shkuratova.coursework2;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 import java.util.Properties;
+
+/**
+ * class Connection
+ * <p>
+ * This class for writing and reading from connections
+ *
+ * @author Kate Shkuratova
+ * @version 1.1
+ * @see Client
+ * @see MultiThreadServer
+ */
 
 public class Connection implements AutoCloseable {
     private Socket socket;
@@ -10,9 +22,13 @@ public class Connection implements AutoCloseable {
     private ObjectOutputStream output;
 
     public Connection(Socket socket) throws IOException {
-        this.socket = socket; // общий для клиента и сервера
+        this.socket = Objects.requireNonNull(socket); // common for client and server
         output = new ObjectOutputStream(this.socket.getOutputStream());
         input = new ObjectInputStream(this.socket.getInputStream());
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     public static Properties getProperties() {
@@ -36,7 +52,7 @@ public class Connection implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws IOException {
         input.close();
         output.close();
         socket.close();
