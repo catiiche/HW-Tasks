@@ -7,7 +7,6 @@ import java.util.Properties;
 
 /**
  * class Connection
- * <p>
  * This class for writing and reading from connections
  *
  * @author Kate Shkuratova

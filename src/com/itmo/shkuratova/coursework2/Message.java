@@ -3,16 +3,17 @@ package com.itmo.shkuratova.coursework2;
 import java.io.Serializable;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
  * class Message
- * <p>
  * This class helps to create messages for sending
  *
  * @author Kate Shkuratova
  * @version 1.1
  * @see Client
+ * @see MultiThreadServer
  */
 
 public class Message implements Serializable {
@@ -45,8 +46,10 @@ public class Message implements Serializable {
         return text;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy в HH:mm");
+        String dateTimeToStr = formatter.format(dateTime);
+        return dateTimeToStr;
     }
 
     public void setSocket(Socket socket) {
@@ -64,9 +67,9 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "Message{" +
-                "user='" + user + '\'' +
-                ", text='" + text + '\'' +
-                ", dateTime=" + dateTime +
+                "user = '" + user + '\'' +
+                ", text = '" + text + '\'' +
+                " " + getDateTime() +
                 '}';
     }
 }

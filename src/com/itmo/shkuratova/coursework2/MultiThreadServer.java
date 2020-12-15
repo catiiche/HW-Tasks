@@ -9,7 +9,6 @@ import java.util.concurrent.*;
 
 /**
  * class MultiThreadServer
- * <p>
  * This class sends the received message to all connected clients,
  * except sender
  *
@@ -44,8 +43,7 @@ public class MultiThreadServer {
                 Socket socket = serverSocket.accept(); // client connected
                 Connection connection = new Connection(socket);
                 clientSocket.add(connection);
-                System.out.println("New client: " + socket);
-                System.out.println(clientSocket);
+                System.out.println("New client: " + connection.getSocket().getInetAddress() + " : " + connection.getSocket().getPort());
 
                 new Thread(new MultiThreadServer.ServerReader(connection, clientSocket, messagesContainer)).
                         start();
@@ -71,9 +69,11 @@ public class MultiThreadServer {
                 try {
                     clientMessage = connection.readMessage();
                     clientMessage.setSocket(connection.getSocket());
-                    System.out.println("Принято сообщение: " + clientMessage.getText() + " от " + clientMessage.getUser());
+                    System.out.println("Message received: " + clientMessage.getText() + " from " + clientMessage.getUser());
                 } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    System.out.println("Client disconnected: " + connection.getSocket().getInetAddress() + " : " + connection.getSocket().getPort());
+
                     try {
                         connection.close();
                     } catch (IOException ioException) {
@@ -83,11 +83,11 @@ public class MultiThreadServer {
                 }
                 if (clientMessage == null) {
                     MultiThreadServer.this.clientSocket.remove(connection);
-                    System.out.println("Client disconnected: " + connection);
+                    System.out.println("Client disconnected: " + connection.getSocket().getInetAddress() + " : " + connection.getSocket().getPort());
                     break;
                 } else if ("exit".equalsIgnoreCase(clientMessage.getText())) {
+                    System.out.println("Client disconnected: " + connection.getSocket().getInetAddress() + " : " + connection.getSocket().getPort());
                     MultiThreadServer.this.clientSocket.remove(connection);
-                    System.out.println("Client disconnected: " + connection);
                     break;
                 }
                 try {
@@ -121,7 +121,6 @@ public class MultiThreadServer {
                             connection.sendMessage(messageFromContainer);
                         }
                     }
-
                 } catch (InterruptedException | IOException e) {
                     e.printStackTrace();
                 }
