@@ -1,16 +1,15 @@
 package com.itmo.shkuratova.coursework3;
 
-public class LoadGame implements Command {
+public class StartNewGame implements Command {
     private final Game game;
 
-    public LoadGame(Game game) {
+    public StartNewGame(Game game) {
         this.game = game;
     }
 
     @Override
     public void execute() {
-        game.load();
-
+        game.newGame();
     }
 }
 

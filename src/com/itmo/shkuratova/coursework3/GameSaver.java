@@ -28,7 +28,10 @@ public class GameSaver implements Strategy {
 
     @Override
     public List<SaveGame> getSaveList(String user) {
-        try {
+
+
+
+     /*   try {
             return Files.walk(Paths.get(path))
                     .filter(Files::isRegularFile)
                     .filter(path -> path.getFileName().toString().endsWith(EXTENSION))
@@ -38,7 +41,7 @@ public class GameSaver implements Strategy {
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } */
         return null;
     }
 

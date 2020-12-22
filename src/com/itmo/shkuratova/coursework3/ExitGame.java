@@ -1,14 +1,15 @@
 package com.itmo.shkuratova.coursework3;
 
-public class ExitGame implements Command{
-    @Override
-    public void execute() {
+public class ExitGame implements Command {
+    private final Game game;
 
+    public ExitGame(Game game) {
+        this.game = game;
     }
 
     @Override
-    public Integer printMenu() {
-        return null;
+    public void execute() {
+   //     game.exit();
     }
 
 
