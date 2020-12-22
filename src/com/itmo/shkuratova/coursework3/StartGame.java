@@ -2,7 +2,7 @@ package com.itmo.shkuratova.coursework3;
 
 public class StartGame implements Command {
     private final Game game; // почему final ?
-
++
     public StartGame(Game game) {
         this.game = game;
     }

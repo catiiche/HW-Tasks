@@ -3,43 +3,48 @@ package com.itmo.shkuratova.coursework3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Menu {
-    private List<Command> menu = new ArrayList<>();
+    private final Map<Integer, Command> commandContainer;
+    private static final int MENU_CHOICE = 4;
+    private static final String MENU =
+            "What do you want to do ?\n"
+                    + "Press 1 for new game.\n"
+                    + "Press 2 to load game\n"
+                    + "Press 3 if you want save your game\n"
+                    + "Press 4 to exit";
+
 
     public Menu() {
-        menu.add(new StartGame());
-        menu.add(new LoadGame());
-        menu.add(new ExitGame());
+        commandContainer = new HashMap<>();
     }
 
-    public void run() {
-        int i = this.printMenu();
-        this.menu.get(i).execute(); // запуск класса
+    public void setCommand(int choice, Command command) {
+        commandContainer.put(choice, command);
 
     }
 
-    public Integer printMenu() {
-        System.out.println("Введите команду:\n"
-                + "start для начала новой игры\n"
-                + "load для загрузки сохраненной игры\n"
-                + "exit для выхода");
+    public Command getCommand(int choice) {
+        return commandContainer.get(choice);
+    }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
-            try {
-                if (reader.readLine().equalsIgnoreCase("start")) {
-                    return 0;
-                } else if (reader.readLine().equalsIgnoreCase("load")) {
-                    return 1;
-                } else if (reader.readLine().equalsIgnoreCase("exit")) {
-                    return 2;
-                } else System.out.println("Неправильный ввод. Введите start, load или exit.");
-            } catch (IOException e) {
-                e.printStackTrace();
+    public void printMenu() {
+        System.out.println(MENU);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+            while (true) {
+                int fromClient = Integer.parseInt(reader.readLine());
+
+                if (fromClient == MENU_CHOICE) break;
+                if (fromClient >= 1 && fromClient < MENU_CHOICE) {
+                    getCommand(fromClient).execute();
+                    System.out.println(MENU);
+                } else System.out.println("Wrong number. Try again!");
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

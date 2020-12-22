@@ -1,22 +1,32 @@
 package com.itmo.shkuratova.coursework3;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class SaveGame {
-    public void saveGame(Receiver receiver) {
-        try {
-            System.out.println("Для сохранения игры введите имя файла");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            File fileName = new File(reader.readLine());
-            try (FileOutputStream stream = new FileOutputStream(fileName);
-                 ObjectOutputStream objectOutput = new ObjectOutputStream(stream)) {
-                objectOutput.writeObject(receiver);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+public class SaveGame implements Serializable {
+    private final String user;
+    private final String gameState;
+    private LocalDateTime dateTime;
+    private static final long serialVersionID = 1L;
 
+    public SaveGame(String user, String gameState, LocalDateTime date) {
+        this.user = user;
+        this.gameState = gameState;
+        this.dateTime = LocalDateTime.now();
     }
 
+    public String getUser() {
+        return user;
+    }
 
+    public String getGameState() {
+        return gameState;
+    }
+
+    public String getDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yy  HH:mm");
+        String dateTimeToStr = formatter.format(dateTime);
+        return dateTimeToStr;
+    }
 }
