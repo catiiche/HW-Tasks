@@ -1,9 +1,9 @@
 package com.itmo.shkuratova.coursework3;
 
-public class LoadGame implements Command {
+public class LoadGameCommand implements Command {
     private final Game game;
 
-    public LoadGame(Game game) {
+    public LoadGameCommand(Game game) {
         this.game = game;
     }
 

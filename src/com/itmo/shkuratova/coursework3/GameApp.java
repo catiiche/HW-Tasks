@@ -6,19 +6,26 @@ import java.io.InputStreamReader;
 
 public class GameApp {
     public static void main(String[] args) {
-        Strategy loadGame = new GameSaver("source/wer.sav");
+
+
+
+
+
+        Strategy loadGame = new GameSaver();
 
         Game game = new Game(getUserName(), loadGame);
 
-        StartNewGame gameStart = new StartNewGame(game);
-        LoadGame gameLoad = new LoadGame(game);
+        StartNewGameCommand gameStart = new StartNewGameCommand(game);
+        LoadGameCommand gameLoad = new LoadGameCommand(game);
         SaveGameCommand gameSave = new SaveGameCommand(game);
+        ExitGameCommand gameExit = new ExitGameCommand(game);
 
         Menu menu = new Menu();
 
         menu.setCommand(1, gameStart);
         menu.setCommand(2, gameLoad);
         menu.setCommand(3, gameSave);
+        menu.setCommand(4, gameExit);
 
         menu.printMenu();
 

@@ -13,6 +13,7 @@ public class StepChoice extends Step {
 
     @Override
     public int handleChoice() {
+        System.out.println("МОЙ ПУСЯ САМЫЙ КРАСИВЫЙ");
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("\n" + getText());

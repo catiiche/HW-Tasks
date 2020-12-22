@@ -18,11 +18,20 @@ public class Game {
     public void newGame() {
         gameState = Nodes.START;
         ChainNodes nodes = Nodes.createNodes(gameState);
-        if (nodes != null) gameState = nodes.handleRequest();
+        if (nodes != null) {
+            gameState = nodes.handleRequest();
+        }
 
     }
 
     public void load() {
+            gameState = load.getSaveState();
+
+            ChainNodes nodes = Nodes.createNodes(gameState);
+            if (nodes != null) gameState = nodes.handleRequest();
+
+
+        /*
         System.out.println("--- All save data ---");
         List<SaveGame> saves = load.getSaveList(user);
         for (int i = 0; i < saves.size(); i++)
@@ -47,7 +56,7 @@ public class Game {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } */
     }
 
     public void save() {

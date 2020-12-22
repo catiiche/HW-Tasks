@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Nodes {
     public static final String START = "Начало";
 
-
     public static ChainNodes createNodes(String state) {
         ArrayList<ChainNodes> nodes = new ArrayList<>(13);
 
@@ -23,6 +22,7 @@ public class Nodes {
         ChainNodes rest = new StepChoice("Поесть немного и передохнуть", "Пока Лисёнок ел, злобные пчёлы вернулись и покусали его. Лисёнку нужна помощь, он не сможет продолжить поиски. Игра завершилась неудачей.");
         ChainNodes teddyBear = new StepChoice("Скорее отнести мёд Медвежонку", "Довольный Медвежонок рассказал Лисёнку, что очень хорошо знает семью Белок и уверен, что Бельчонок никогда не пошёл бы в глубь леса. Он заверял Лисёнка, что Белки не попадают в неприятности, и что Совам нельзя верить, он также уговаривал Лисёнка вернуться домой.");
 
+        fox.handleRequest();
         fox.setFirstChoice(home).setSecondChoice(search);
         search.setFirstChoice(forestDwellers).setSecondChoice(singleton);
         forestDwellers.setFirstChoice(owl).setSecondChoice(wolf);
@@ -48,8 +48,10 @@ public class Nodes {
         nodes.add(teddyBear);
 
         for (ChainNodes node : nodes)
-            if (node.getGameState().equals(nodes))
+            if (node.getGameState().equals(state)) {
+                System.out.println("Пусик без трусиков прямо сейчас");
                 return node;
+            }
         return null;
     }
 }
