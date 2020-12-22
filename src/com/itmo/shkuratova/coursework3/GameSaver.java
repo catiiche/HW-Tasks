@@ -50,35 +50,15 @@ public class GameSaver implements Strategy {
         return null;
     }
 
-
-    //@Override
-    public List<SaveGame> getSaveList(String user) {
-/*
-
-        try {
-            return Files.walk(Paths.get(path))
-                    .filter(Files::isRegularFile)
-                    .filter(path -> path.getFileName().toString().endsWith(EXTENSION))
-                    .map(Path::toFile)
-                    .map(this::loadGame))
-                    .filter(Objects::nonNull)
-                    .filter((saveGame -> saveGame.getUser().equals(user)))
-                    .collect(Collectors.toCollection(ArrayList::new));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
-        return null;
-    }
-
     @Override
     public void saveGame(SaveGame game) {
-        File file = new File(path + game.getUser());
+        File file = new File(path);
 
         System.out.println(game.getGameState());
 
         try (ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file))) {
             outStream.writeObject(game);
-            System.out.println("Game saved." + game.getUser());
+            System.out.println("Game saved.");
         } catch (IOException e) {
             e.printStackTrace();
         }

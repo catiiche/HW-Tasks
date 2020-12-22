@@ -9,7 +9,7 @@ public class ExitGameCommand implements Command {
 
     @Override
     public void execute() {
-   //     game.exit();
+     game.exit();
     }
 
 

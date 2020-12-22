@@ -5,19 +5,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SaveGame implements Serializable {
-    private final String user;
     private final String gameState;
     private LocalDateTime dateTime;
     private static final long serialVersionID = 1L;
 
-    public SaveGame(String user, String gameState, LocalDateTime date) {
-        this.user = user;
+    public SaveGame(String gameState, LocalDateTime date) {
         this.gameState = gameState;
         this.dateTime = LocalDateTime.now();
-    }
-
-    public String getUser() {
-        return user;
     }
 
     public String getGameState() {

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Menu {
     private final Map<Integer, Command> commandContainer;
-    private static final int MENU_CHOICE = 4;
+    private static final int MENU_CHOICE = 5;
     private static final String MENU =
             "What do you want to do ?\n"
                     + "Press 1 for new game.\n"
@@ -37,7 +37,7 @@ public class Menu {
             while (true) {
                 int fromClient = Integer.parseInt(reader.readLine());
 
-                if (fromClient == MENU_CHOICE) break;
+               // if (fromClient == MENU_CHOICE) break;
                 if (fromClient >= 1 && fromClient < MENU_CHOICE) {
                     getCommand(fromClient).execute();
                     System.out.println(MENU);

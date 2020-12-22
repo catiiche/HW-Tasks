@@ -13,7 +13,7 @@ public class GameApp {
 
         Strategy loadGame = new GameSaver();
 
-        Game game = new Game(getUserName(), loadGame);
+        Game game = new Game(loadGame);
 
         StartNewGameCommand gameStart = new StartNewGameCommand(game);
         LoadGameCommand gameLoad = new LoadGameCommand(game);
@@ -30,18 +30,5 @@ public class GameApp {
         menu.printMenu();
 
 
-    }
-
-    private static String getUserName() {
-        System.out.println("Type your name.");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        String userName = null;
-        try {
-            userName = reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return userName;
     }
 }

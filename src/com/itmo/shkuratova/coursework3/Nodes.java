@@ -49,7 +49,6 @@ public class Nodes {
 
         for (ChainNodes node : nodes)
             if (node.getGameState().equals(state)) {
-                System.out.println("Пусик без трусиков прямо сейчас");
                 return node;
             }
         return null;
