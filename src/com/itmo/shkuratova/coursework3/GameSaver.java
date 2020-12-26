@@ -1,15 +1,18 @@
 package com.itmo.shkuratova.coursework3;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
+/**
+ * class GameSaver implements Strategy
+ * use for saving game
+ *
+ * @author Kate Shkuratova
+ * @version 1.1
+ * @see Strategy
+ * @see SaveGame
+ */
 public class GameSaver implements Strategy {
     private final String path = "source/game";
 
@@ -24,12 +27,11 @@ public class GameSaver implements Strategy {
 
     @Override
     public String getSaveState() {
-        File dir = new File(path); //path указывает на директорию
+        File dir = new File(path);
         File[] arrFiles = dir.listFiles();
         List<File> lst = Arrays.asList(arrFiles);
 
-
-        System.out.println("Type name of your file with saved game  from LIST  to reload game");
+        System.out.println("If you want load game  - copy string with file name where your game was saved from LIST");
         for (File file : lst) {
             System.out.println(file.getName());
         }
@@ -37,12 +39,15 @@ public class GameSaver implements Strategy {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             while (true) {
-                String saveState = reader.readLine();
+                String fileName = reader.readLine();
 
                 for (File file : lst) {
-                    if (saveState.equalsIgnoreCase(file.getName()))
+                    if (fileName.equalsIgnoreCase(file.getName())) {
+                        String saveState = getStateFromFIle(file);
                         return saveState;
+                    }
                 }
+                System.out.println("Wrong file name. Try again!");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,15 +57,32 @@ public class GameSaver implements Strategy {
 
     @Override
     public void saveGame(SaveGame game) {
-        File file = new File(path);
+        String fileName = "Fox " + game.getDateTime() + ".save";
+        File file = new File(path, fileName);
 
-        System.out.println(game.getGameState());
-
-        try (ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(file))) {
-            outStream.writeObject(game);
-            System.out.println("Game saved.");
+        String saveSate = game.getGameState();
+        if (saveSate == null) {
+            saveSate = Nodes.START;
+        }
+        try (FileWriter writer = new FileWriter(file, true)) {
+            writer.write(saveSate);
+            System.out.println("Game saved: " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    public String getStateFromFIle(File file) {
+        FileReader fr = null;
+        try {
+            fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            return reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+
+

@@ -1,15 +1,21 @@
 package com.itmo.shkuratova.coursework3;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
+/**
+ * class GameApp
+ * use for run program
+ *
+ * @author Kate Shkuratova
+ * @version 1.1
+ * @see StartNewGameCommand
+ * @see LoadGameCommand
+ * @see SaveGameCommand
+ * @see ExitGameCommand
+ * @see Menu
+ * @see Strategy
+ * @see Game
+ */
 public class GameApp {
     public static void main(String[] args) {
-
-
-
-
 
         Strategy loadGame = new GameSaver();
 
@@ -28,7 +34,6 @@ public class GameApp {
         menu.setCommand(4, gameExit);
 
         menu.printMenu();
-
 
     }
 }

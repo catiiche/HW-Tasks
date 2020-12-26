@@ -4,6 +4,14 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * class SaveGame implements Serializable
+ *
+ * helps to save game state and date of saving game
+ *
+ * @author Kate Shkuratova
+ * @version 1.1
+ */
 public class SaveGame implements Serializable {
     private final String gameState;
     private LocalDateTime dateTime;

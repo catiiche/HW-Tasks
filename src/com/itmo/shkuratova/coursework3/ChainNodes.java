@@ -1,6 +1,15 @@
 package com.itmo.shkuratova.coursework3;
 
-// pattern chain
+/**
+ * interface ChainNodes
+ * use for representing the chain pattern
+ * helps  get  state of game, add next nodes and handle request
+ *
+ * @author Kate Shkuratova
+ * @version 1.1
+ * @see Step
+ * @see Nodes
+ */
 
 public interface ChainNodes {
     String getGameState();
